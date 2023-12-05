@@ -1,20 +1,11 @@
-export default function updateStudentGradeByCity(students, city, newGrades) {
-  // Use filter to select students in the specified city
-  const studentsInCity = students.filter(student => student.location === city);
-
-  // Use map to update grades for selected students
-  const updatedStudents = studentsInCity.map(student => {
-    // Find the grade object for the student in newGrades
-    const studentGrade = newGrades.find(grade => grade.studentId === student.id);
-
-    // Update the student object with the new grade or set it to 'N/A'
-    return {
-      id: student.id,
-      firstName: student.firstName,
-      location: student.location,
-      grade: studentGrade ? studentGrade.grade : 'N/A',
-    };
-  });
-
-  return updatedStudents;
+export default function getStudentsByLocation(array, city, grad) {
+  return array
+    .filter((i) => i.location === city)
+    .map((student) => {
+      const gradeI = grad
+        .filter((i) => i.studentId === student.id)
+        .map((x) => x.grade)[0];
+      const grade = gradeI || 'N/A';
+      return { ...student, grade };
+    });
 }
